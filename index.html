@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web API 学習ビューア</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Learning Page</p>
+        <h1>取得方法ベースの Web API 可視化</h1>
+        <p class="lead">
+          ブラウザがJavaScriptで取得できる情報を、<strong>location系 / document系 / navigator系 / screen系 / performance系</strong> のように
+          「どのAPIから取得しているか」で整理して表示します。<br />
+          プログラミングの入り口や、セキュリティを考えられる構成にしています。<br />
+          ※Web API：ここでは、ウェブでアプリを構築するために利用できる JavaScript のプログラミング API 群のことを指します。
+        </p>
+      </div>
+
+      <div class="hero-actions">
+        <button id="reloadButton" type="button">再取得</button>
+        <button id="copyJsonButton" type="button">JSONをコピー</button>
+        <button id="toggleRawButton" type="button">コード例の表示切替</button>
+      </div>
+
+      <p id="statusMessage" class="status-message">読み込み中...</p>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <h2>学習の見方</h2>
+        <ol class="guide-list">
+          <li>まず API グループ名を見る</li>
+          <li>次に 値 / 由来 / コード例 を対応させる</li>
+          <li>そのあと DevTools で同じ式を試す</li>
+        </ol>
+
+        <div class="legend">
+          <div class="legend-item"><span class="tag source">source</span><span>取得元の系統</span></div>
+          <div class="legend-item"><span class="tag value">value</span><span>現在の取得値</span></div>
+          <div class="legend-item"><span class="tag code">code</span><span>実際のコード例</span></div>
+        </div>
+      </aside>
+
+      <section class="content">
+        <section class="api-card">
+          <div class="api-header">
+            <h2>location 系</h2>
+            <p>現在のURLやホスト、パスなど、ページの位置を表す情報です。</p>
+          </div>
+          <div id="locationInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>document 系</h2>
+            <p>現在のHTML文書や参照元、タイトルなど、ドキュメントに関する情報です。</p>
+          </div>
+          <div id="documentInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>navigator 系</h2>
+            <p>ブラウザ・端末・言語・Cookie有効状態など、利用者環境の自己申告的な情報です。</p>
+          </div>
+          <div id="navigatorInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>screen / window 系</h2>
+            <p>画面サイズや表示領域、ピクセル比など、見た目や表示に関係する情報です。</p>
+          </div>
+          <div id="screenInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>Intl / Date 系</h2>
+            <p>タイムゾーンや現在時刻など、ロケールや時刻表現に関する情報です。</p>
+          </div>
+          <div id="intlInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>performance 系</h2>
+            <p>ページ読込やリソース読込のタイミング情報です。性能分析や学習に向いています。</p>
+          </div>
+          <div id="performanceInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card">
+          <div class="api-header">
+            <h2>機能有無チェック</h2>
+            <p>localStorage や indexedDB など、「その機能が使えるか」を確認する例です。</p>
+          </div>
+          <div id="featureInfo" class="api-list"></div>
+        </section>
+
+        <section class="api-card wide-card">
+          <div class="api-header">
+            <h2>取得結果(JSON)</h2>
+            <p>学習用に、現在ページで取得した内容をまとめて JSON 表示しています。</p>
+          </div>
+          <pre id="jsonOutput" class="json-output"></pre>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
